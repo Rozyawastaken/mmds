@@ -13,13 +13,16 @@ USER root
 # Install requirements
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Install nc (Netcat) and curl (if needed)
+# Install netcat and curl
 RUN apt-get update && \
     apt-get install -y netcat curl && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy your PySpark script into the container
-COPY main.py .
+# Copy the main python script
+COPY demo.py .
+
+# Copy the bloom filter pickle
+COPY bloom_filter.pkl .
 
 # Copy the start script into the container
 COPY entrypoint.sh .
